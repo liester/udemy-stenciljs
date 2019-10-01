@@ -4,16 +4,14 @@ class ShowHide extends HTMLElement {
         this.attachShadow({mode: 'open'})
         this.shadowRoot.innerHTML = `
             <button>Show</button>
-            <p><slot>Some Default</slot></p>
-        `
+            <p style='display: none'><slot>Some Default</slot></p>
+        `;
         this.isHidden = true;
         this.button = this.shadowRoot.querySelector('button');
         this.paragraph = this.shadowRoot.querySelector('p');
-    }
-
-    connectedCallback(){
         this.button.addEventListener('click', this.showHide.bind(this))
     }
+
 
     showHide(){
         this.isHidden = !this.isHidden;

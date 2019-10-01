@@ -7,14 +7,21 @@ class Tooltip extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 div {
+                    font-weight: normal;
                     background-color: black;
                     color: white;
                     position: absolute;
+                    top: 1.5rem;
+                    left: 0.75rem;
                     z-index: 10;
+                    padding: 0.15rem;
+                    border-radius: 3px;
+                    box-shadow: 1px 1px 6px rgba(0,0,0,0.26)
                 }
 
                 :host(.important) {
                     background: var(--color-primary, #ccc);
+                    padding: .15rem;
                 }
 
                 :host-context(p){
@@ -29,7 +36,7 @@ class Tooltip extends HTMLElement {
                     background: black;
                     color: white;
                     padding: 0.15rem 0.5rem;
-                    text-allign: center;
+                    text-align: center;
                     border-radius: 50%;
                 }
             </style>
@@ -47,6 +54,14 @@ class Tooltip extends HTMLElement {
         tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this))
         this.shadowRoot.appendChild(tooltipIcon);
         this.style.position= 'relative';
+    }
+
+    attributeChangedCallback(name, oldValue, newValue){
+        console.log(name, oldValue, newValue)
+    }
+
+    static get observedAttributes(){
+        return ['text']
     }
 
     _showTooltip() {
